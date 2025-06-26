@@ -1,0 +1,33 @@
+{
+    "manifest_version": 2,
+    "name": "ImmichUpload",
+    "version": "1.0",
+  
+    "description": "Upload images directly to an Immich server from the right click menu.",
+  
+    "background": {
+        "scripts": [
+            "background.js"
+        ],
+        "persistent": false
+    },
+
+    "permissions": [
+        "activeTab",
+        "contextMenus",
+        "webRequest",
+        "<all_urls>",
+        "storage"
+    ],
+
+    "options_ui": {
+        "page": "options.html"
+    },
+
+    "browser_specific_settings": {
+        "gecko": {
+            "id": "addon@example.com"
+        }
+    }
+}
+  
