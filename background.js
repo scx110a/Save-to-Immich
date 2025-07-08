@@ -16,16 +16,11 @@ browser.contextMenus.onClicked.addListener((info, tab) => {
 });
 
 async function immichUpload(imgUrl) {
-    console.debug("Start of upload")
     const imgResponse = await fetch(imgUrl)
-    console.debug("Done fetching")
     const img = await imgResponse.blob()
-    console.debug(img)
     const date = new Date()
-    console.debug(imgUrl)
     fileNameArr = imgUrl.split("/")
     fileName = fileNameArr[fileNameArr.length - 1].split("?")[0]
-    console.debug(fileName)
     imgFile = new File([img], fileName)
     const formData = new FormData()
     formData.append("deviceAssetId",fileName+date.getTime())
@@ -33,7 +28,6 @@ async function immichUpload(imgUrl) {
     formData.append("fileCreatedAt",date.toISOString())
     formData.append("fileModifiedAt",date.toISOString())
     formData.append("assetData",imgFile)
-    console.debug("formData created, posting")
     const API_KEY_GETTING = await browser.storage.sync.get("api_key")
     const API_KEY = API_KEY_GETTING.api_key
     const { api_url } = await browser.storage.sync.get("api_url");
@@ -45,6 +39,4 @@ async function immichUpload(imgUrl) {
         },
         body: formData
     })
-    console.debug("Posted, response:")
-    console.debug(response)
 }
