@@ -1,5 +1,5 @@
 {
-    "manifest_version": 2,
+    "manifest_version": 3,
     "name": "ImmichUpload",
     "version": "1.0",
   
@@ -8,16 +8,18 @@
     "background": {
         "scripts": [
             "background.js"
-        ],
-        "persistent": false
+        ]
     },
 
     "permissions": [
         "activeTab",
         "contextMenus",
         "webRequest",
-        "<all_urls>",
         "storage"
+    ],
+
+    "host_permissions": [
+        "<all_urls>"
     ],
 
     "options_ui": {

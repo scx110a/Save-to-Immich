@@ -1,7 +1,7 @@
 browser.contextMenus.create(
     {
         id: "upload-immich",
-        title: "Upload image to Immich album",
+        title: "Upload image to Immich",
         contexts: ["image"],
     },
     () => void browser.runtime.lastError,
@@ -11,7 +11,6 @@ browser.contextMenus.onClicked.addListener((info, tab) => {
     if (info.menuItemId === "upload-immich") {
         const imageUrl = info.srcUrl;
         immichUpload(imageUrl);
-        
     }
 });
 
