@@ -1,4 +1,4 @@
-﻿# ImmichUpload Browser Extension
+﻿# UploadImch Browser Extension
 
 Upload images directly to your [Immich](https://github.com/immich-app/immich) server from the browser's right-click context menu.
 

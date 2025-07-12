@@ -1,6 +1,6 @@
 {
     "manifest_version": 3,
-    "name": "ImmichUpload",
+    "name": "UploadImch",
     "version": "1.0",
   
     "description": "Upload images directly to an Immich server from the right click menu.",
