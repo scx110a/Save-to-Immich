@@ -73,7 +73,7 @@ async function immichUpload(imgUrl, albumId) {
     formData.append("deviceId", "Extension");
     formData.append("fileCreatedAt", date.toISOString());
     formData.append("fileModifiedAt", date.toISOString());
-    formData.append("assetData", imgFile);;
+    formData.append("assetData", imgFile);
     const { api_key } = await browser.storage.sync.get("api_key");
     const { api_url } = await browser.storage.sync.get("api_url");
     let response = await fetch(api_url + "/assets", {
