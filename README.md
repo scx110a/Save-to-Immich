@@ -1,10 +1,17 @@
-﻿# UploadImch Browser Extension
+﻿> DISCLAIMER  
+> This project is not affiliated with or endorsed by Immich. It is an independent browser extension created to enhance the Immich experience by allowing direct uploads from the browser.
 
-Upload images directly to your [Immich](https://github.com/immich-app/immich) server from the browser's right-click context menu.
+<img src="icons/icon.svg" width="200" style="display: block; margin: auto;">
+
+<h1 align="center">UploadImch Firefox Extension</h1>
+
+<p align="center">
+  Upload images directly to your <a href="https://github.com/immich-app/immich">Immich</a> server from firefox's right-click context menu.
+</p>
 
 ## Features
 
-- Right-click any image and upload it to your Immich server.
+- Right-click any image or video and upload it to your Immich server.
 - Choose a specific album to upload to, directly from the context menu.
 - Manage your Immich API URL and API Key from the extension's options page.
 - Reload and view your albums from the options page.
@@ -12,9 +19,10 @@ Upload images directly to your [Immich](https://github.com/immich-app/immich) se
 ## Installation
 
 1. Clone or download this repository.
-2. Open your browser's extension/add-on page (e.g., `about:debugging` in Firefox, or `chrome://extensions` in Chrome).
+2. Open firefox's debug page `about:debugging`, click "this firefox".
 3. Enable "Developer mode" if needed.
-4. Click "Load unpacked" (Chrome) or "Load Temporary Add-on" (Firefox) and select this folder.
+4. Click "Load Temporary Add-on" and select the manifest.json in this folder.
+5. You may have to give the extension permissions to access "all urls", to communicate with your immich server.
 
 ## Configuration
 
@@ -43,3 +51,5 @@ Your API key and URL are stored locally in your browser's extension storage and 
 
 MIT
 
+## Note
+Extension is currently only available for Firefox. If you want to use it in other browsers, you can try to convert it using [web-ext](https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/Using_web-ext_command_line_tool) or similar tools.
