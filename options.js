@@ -45,3 +45,21 @@ async function displayAlbums() {
 }
 
 document.addEventListener("DOMContentLoaded", displayAlbums);
+
+// Add dark mode toggle logic
+const darkToggle = document.getElementById('dark_mode_toggle');
+const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+const savedMode = localStorage.getItem('darkMode');
+
+function setDarkMode(enabled) {
+  document.body.classList.toggle('dark-mode', enabled);
+  localStorage.setItem('darkMode', enabled ? '1' : '0');
+  darkToggle.checked = enabled;
+}
+
+darkToggle.addEventListener('change', () => {
+  setDarkMode(darkToggle.checked);
+});
+
+// Initialize on load
+setDarkMode(savedMode === null ? prefersDark : savedMode === '1');

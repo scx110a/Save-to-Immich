@@ -3,6 +3,157 @@
   <head>
     <meta charset="utf-8" />
     <title>UploadImch Options</title>
+    <style>
+      :root {
+        --primary: #4a90e2;
+        --primary-dark: #357ab8;
+        --bg: #f7f7fa;
+        --form-bg: #fff;
+        --text: #333;
+        --input-bg: #fafbfc;
+        --border: #ccc;
+        --shadow: 0 2px 8px rgba(0,0,0,0.07);
+      }
+      /*noinspection CssUnusedSymbol*/
+      body.dark-mode {
+        --primary: #90caf9;
+        --primary-dark: #1976d2;
+        --bg: #181a1b;
+        --form-bg: #23272b;
+        --text: #e0e0e0;
+        --input-bg: #23272b;
+        --border: #444;
+        --shadow: 0 2px 8px rgba(0,0,0,0.3);
+      }
+      body {
+        font-family: system-ui, sans-serif;
+        background: var(--bg);
+        color: var(--text);
+        margin: 0;
+        padding: 0;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        transition: background 0.3s, color 0.3s;
+      }
+      form {
+        background: var(--form-bg);
+        padding: 2rem 2.5rem;
+        border-radius: 8px;
+        box-shadow: var(--shadow);
+        display: flex;
+        flex-direction: column;
+        gap: 1.2rem;
+        margin-top: 3rem;
+        min-width: 320px;
+        transition: background 0.3s, box-shadow 0.3s;
+      }
+      label {
+        display: flex;
+        flex-direction: column;
+        font-weight: 500;
+        color: var(--text);
+        gap: 0.3rem;
+      }
+      input[type="text"] {
+        padding: 0.5rem 0.7rem;
+        border: 1px solid var(--border);
+        border-radius: 4px;
+        font-size: 1rem;
+        background: var(--input-bg);
+        color: var(--text);
+        transition: border 0.2s, background 0.3s, color 0.3s;
+      }
+      input[type="text"]:focus {
+        border: 1.5px solid var(--primary);
+        outline: none;
+        background: var(--form-bg);
+      }
+      button[type="submit"] {
+        background: var(--primary);
+        color: #fff;
+        border: none;
+        border-radius: 4px;
+        padding: 0.7rem 1.2rem;
+        font-size: 1rem;
+        font-weight: 600;
+        cursor: pointer;
+        margin-top: 0.5rem;
+        transition: background 0.2s;
+      }
+      button[type="submit"]:hover {
+        background: var(--primary-dark);
+      }
+      #reload_albums {
+        margin-top: 2rem;
+        background: var(--form-bg);
+        color: var(--primary);
+        border: 1px solid var(--primary);
+        border-radius: 4px;
+        padding: 0.6rem 1.1rem;
+        font-size: 1rem;
+        font-weight: 500;
+        cursor: pointer;
+        transition: background 0.2s, color 0.2s;
+      }
+      #reload_albums:hover {
+        background: var(--primary);
+        color: #fff;
+      }
+      #albums_list {
+        margin-top: 2rem;
+        background: var(--form-bg);
+        border-radius: 8px;
+        box-shadow: var(--shadow);
+        padding: 1.5rem 2rem;
+        min-width: 320px;
+        min-height: 2rem;
+        color: var(--text);
+        transition: background 0.3s, color 0.3s, box-shadow 0.3s;
+      }
+      .switch {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        margin-top: 1.5rem;
+        user-select: none;
+      }
+      .switch input[type="checkbox"] {
+        width: 40px;
+        height: 20px;
+        appearance: none;
+        background: #ccc;
+        outline: none;
+        border-radius: 20px;
+        position: relative;
+        transition: background 0.3s;
+        cursor: pointer;
+      }
+      .switch input[type="checkbox"]:checked {
+        background: var(--primary);
+      }
+      .switch input[type="checkbox"]::before {
+        content: '';
+        position: absolute;
+        left: 3px;
+        top: 3px;
+        width: 14px;
+        height: 14px;
+        background: #fff;
+        border-radius: 50%;
+        transition: transform 0.3s;
+      }
+      .switch input[type="checkbox"]:checked::before {
+        transform: translateX(20px);
+      }
+      .switch label {
+        font-size: 1rem;
+        color: var(--text);
+        font-weight: 500;
+        margin: 0;
+      }
+    </style>
   </head>
 
   <body>
@@ -13,6 +164,10 @@
     </form>
     <button type="button" id="reload_albums">Reload Albums</button>
     <div id="albums_list"></div>
+    <div class="switch">
+      <label for="dark_mode_toggle">Dark Mode</label>
+      <input type="checkbox" id="dark_mode_toggle" />
+    </div>
 
     <script src="options.js"></script>
   </body>
