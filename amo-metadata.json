@@ -1,0 +1,13 @@
+{
+  "version": { "license": "MIT" },
+  "categories": { "firefox": ["photos-music-videos"] },
+  "homepage": {
+    "en-US": "https://github.com/electricsteve/UploadImch"
+  },
+  "name": {
+    "en-US": "UploadImch"
+  },
+  "summary": {
+    "en-US": "Upload images directly to an Immich server from the right click menu."
+  }
+}
