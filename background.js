@@ -23,8 +23,8 @@ async function createAlbumMenus() {
     await browser.contextMenus.removeAll();
     browser.contextMenus.create({
         id: "upload-immich",
-        title: "Upload image to Immich",
-        contexts: ["image"]
+        title: "Upload image/video to Immich",
+        contexts: ["image", "video"],
     });
     const { immich_albums } = await browser.storage.sync.get("immich_albums");
     if (immich_albums && Array.isArray(immich_albums)) {
@@ -33,7 +33,7 @@ async function createAlbumMenus() {
                 id: `upload-immich-album-${album.id}`,
                 parentId: "upload-immich",
                 title: album.albumName || album.name || `Album ${album.id}`,
-                contexts: ["image"]
+                contexts: ["image", "video"],
             });
         }
     }
