@@ -2,12 +2,12 @@
 > This project is not affiliated with or endorsed by Immich. It is an independent browser extension created to enhance the Immich experience by allowing direct uploads from the browser.
 
 <img src="icons/icon.svg" width="200" style="display: block; margin: auto;">
-
 <h1 align="center">UploadImch Firefox Extension</h1>
 
 <p align="center">
   Upload images directly to your <a href="https://github.com/immich-app/immich">Immich</a> server from firefox's right-click context menu.
 </p>
+<img src="GetAddon.png" style="display: block; margin: 30px auto auto;">
 
 ## Features
 
@@ -16,7 +16,7 @@
 - Manage your Immich API URL and API Key from the extension's options page.
 - Reload and view your albums from the options page.
 
-## Installation
+## Dev Installation
 
 1. Clone or download this repository.
 2. Open firefox's debug page `about:debugging`, click "this firefox".

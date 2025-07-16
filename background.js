@@ -50,6 +50,15 @@ browser.runtime.onMessage.addListener((msg, sender, sendResponse) => {
     }
 });
 
+// Open options page when extension icon is clicked
+browser.action.onClicked.addListener(() => {
+    if (browser.runtime.openOptionsPage) {
+        browser.runtime.openOptionsPage();
+    } else {
+        window.open(browser.runtime.getURL("options.html"));
+    }
+});
+
 browser.contextMenus.onClicked.addListener((info) => {
     if (info.menuItemId === "upload-immich") {
         const imageUrl = info.srcUrl;
