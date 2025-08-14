@@ -3,7 +3,8 @@
 
 <p align="center">
   <a href="https://addons.mozilla.org/en-US/firefox/addon/uploadimch/"><img src="icons/icon.svg" width="200" style="display: block; margin: auto;"></a>
-  <a href="https://addons.mozilla.org/en-US/firefox/addon/uploadimch/"><p align="center"><img src="GetAddon.png"></p></a>
+  <br/>
+  <a href="https://addons.mozilla.org/en-US/firefox/addon/uploadimch/"><img src="GetAddon.png"></a>
   <h1 align="center">UploadImch Firefox Extension</h1>
   <p>Upload images directly to your <a href="https://github.com/immich-app/immich">Immich</a> server from firefox's right-click context menu.</p>
 </p>
