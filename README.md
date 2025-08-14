@@ -2,7 +2,7 @@
 > This project is not affiliated with or endorsed by Immich. It is an independent browser extension created to enhance the Immich experience by allowing direct uploads from the browser.
 
 <p align="center">
-  <img src="icons/icon.svg" width="200" style="display: block; margin: auto;">
+  <a href="https://addons.mozilla.org/en-US/firefox/addon/uploadimch/"><img src="icons/icon.svg" width="200" style="display: block; margin: auto;"></a>
   <a href="https://addons.mozilla.org/en-US/firefox/addon/uploadimch/"><p align="center"><img src="GetAddon.png"></p></a>
   <h1 align="center">UploadImch Firefox Extension</h1>
   <p>Upload images directly to your <a href="https://github.com/immich-app/immich">Immich</a> server from firefox's right-click context menu.</p>
