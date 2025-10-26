@@ -17,8 +17,7 @@
         "webRequest",
         "storage",
         "scripting",
-        "notifications",
-        "sidePanel"
+        "notifications"
     ],
 
     "host_permissions": [
@@ -27,10 +26,6 @@
 
     "options_ui": {
         "page": "options.html"
-    },
-
-    "side_panel": {
-        "default_path": "select-images-and-save.html"
     },
 
     "browser_specific_settings": {

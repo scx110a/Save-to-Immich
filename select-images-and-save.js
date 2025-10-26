@@ -39,14 +39,16 @@ function createSelectNodes(url, index) {
     checkBox.onclick = (e) => {
         e.stopPropagation();
     }
+    const imgOutter = document.createElement("div");
+    imgOutter.className = "img-wrapper";
     const imgBox = document.createElement("img");
     imgBox.src = url;
-    imgBox.style = "max-height: 5rem; max-width: 5rem;";
     imgBox.id = "img_" + index;
+    imgOutter.appendChild(imgBox);
     node.onclick = function() {
         checkBox.checked = !checkBox.checked;
     };
-    node.appendChild(imgBox);
+    node.appendChild(imgOutter);
     node.appendChild(checkBox);
     return node;
 }
