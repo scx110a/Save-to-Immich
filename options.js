@@ -39,9 +39,15 @@ async function displayAlbums() {
         listDiv.innerText = "No albums found.";
         return;
     }
-    listDiv.innerHTML = `<b>Albums:</b><ul>` +
-        immich_albums.map(a => `<li>${a.albumName || a.name || a.id}</li>`).join("") +
-        `</ul>`;
+    const nodeHeader = document.createElement("b");
+    nodeHeader.innerText = "Albums:";
+    listDiv.appendChild(nodeHeader);
+    for (let index = 0; index < immich_albums.length; index++) {
+        const element = immich_albums[index];
+        const albumElement = document.createElement("li");
+        albumElement.innerText = element.albumName || element.name || element.id;
+        listDiv.appendChild(albumElement);
+    }
 }
 
 document.addEventListener("DOMContentLoaded", displayAlbums);
