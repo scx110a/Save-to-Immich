@@ -1,7 +1,7 @@
 {
     "manifest_version": 3,
     "name": "Save to immich",
-    "version": "1.1.0",
+    "version": "1.2.2",
   
     "description": "Save image to Immich server",
   
@@ -15,8 +15,11 @@
         "activeTab",
         "contextMenus",
         "webRequest",
-        "storage",
         "scripting",
+        "storage"
+    ],
+
+    "optional_permissions": [
         "notifications"
     ],
 

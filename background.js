@@ -215,10 +215,14 @@ async function immichUpload(img, imgUrl, albumId, albumName) {
 }
 
 function sendNotification(msg) {
-    browser.notifications.create({
-        type: 'basic',
-        iconUrl: 'icons/icon.svg',
-        title: 'Upload Immich',
-        message: msg,
-    });
+    try {
+        browser.notifications.create({
+            type: 'basic',
+            iconUrl: 'icons/icon.svg',
+            title: 'Upload Immich',
+            message: msg,
+        });
+    } catch (e) {
+        console.log(e);
+    }
 }
