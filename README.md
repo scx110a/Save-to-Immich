@@ -1,18 +1,17 @@
 ﻿> DISCLAIMER  
 > This project is not affiliated with or endorsed by Immich. It is an independent browser extension created to enhance the Immich experience by allowing direct uploads from the browser.
 
+<img src="icons/icon.svg" width="200" style="display: block; margin: auto;">
+<h1 align="center">Save to Immich Firefox Extension</h1>
+
 <p align="center">
-  <a href="https://addons.mozilla.org/en-US/firefox/addon/uploadimch/"><img src="icons/icon.svg" width="200" style="display: block; margin: auto;"></a>
-  <br/>
-  <a href="https://addons.mozilla.org/en-US/firefox/addon/uploadimch/"><img src="GetAddon.png"></a>
-  <h1 align="center">UploadImch Firefox Extension</h1>
-  <p>Upload images directly to your <a href="https://github.com/immich-app/immich">Immich</a> server from firefox's right-click context menu.</p>
+  Upload images directly to your <a href="https://github.com/immich-app/immich">Immich</a> server from firefox's right-click popup window.
 </p>
 
 ## Features
 
 - Right-click any image or video and upload it to your Immich server.
-- Choose a specific album to upload to, directly from the context menu.
+- Choose a specific album to upload to, directly from the popup window.
 - Manage your Immich API URL and API Key from the extension's options page.
 - Reload and view your albums from the options page.
 
@@ -36,6 +35,14 @@
 - Right-click any image on a web page.
 - Select **Upload image to Immich**.
 - Choose an album from the submenu, or upload without selecting an album.
+
+## How to get your API key
+
+- Open Immich Account Settings on web page
+- Select API Secrets
+- Click "New API Secret"
+- Select asset urls for upload. if you want to create or add to a album, you also need to select album urls.
+- Click Create, and copy the secret. **DO NOT SHOW THIS KEY TO OTHERS AND SAVE IT SAFELY**
 
 ## Security
 

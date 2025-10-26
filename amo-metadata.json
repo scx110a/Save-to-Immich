@@ -2,12 +2,12 @@
   "version": { "license": "MIT" },
   "categories": { "firefox": ["photos-music-videos"] },
   "homepage": {
-    "en-US": "https://github.com/electricsteve/UploadImch"
+    "en-US": "https://github.com/scx110a/Save-to-Immich"
   },
   "name": {
-    "en-US": "UploadImch"
+    "en-US": "Save to Immich"
   },
   "summary": {
-    "en-US": "Upload images directly to an Immich server from the right click menu."
+    "en-US": "Save image to Immich server."
   }
 }

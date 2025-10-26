@@ -1,3 +1,4 @@
+const imageList = {};
 // Fetch albums from Immich and store in storage
 async function fetchAndStoreAlbums() {
     const { api_url } = await browser.storage.sync.get("api_url");
@@ -9,44 +10,43 @@ async function fetchAndStoreAlbums() {
         });
         if (!res.ok) throw new Error("Failed to fetch albums");
         const albums = await res.json();
-        await browser.storage.sync.set({ immich_albums: albums });
+        await browser.storage.local.set({ immich_albums: albums });
         return albums;
     } catch (e) {
         console.error("Error fetching albums:", e);
-        await browser.storage.sync.set({ immich_albums: [] });
+        await browser.storage.local.set({ immich_albums: [] });
         return [];
     }
 }
 
-// Create context menu for each album
-async function createAlbumMenus() {
+async function createSaveMenus() {
     await browser.contextMenus.removeAll();
     browser.contextMenus.create({
-        id: "upload-immich",
-        title: "Upload image/video to Immich",
+        id: "save-to-immich",
+        title: "Save to Immich and add to album",
         contexts: ["image", "video"],
     });
-    const { immich_albums } = await browser.storage.sync.get("immich_albums");
-    if (immich_albums && Array.isArray(immich_albums)) {
-        for (const album of immich_albums) {
-            browser.contextMenus.create({
-                id: `upload-immich-album-${album.id}`,
-                parentId: "upload-immich",
-                title: album.albumName || album.name || `Album ${album.id}`,
-                contexts: ["image", "video"],
-            });
-        }
-    }
+    browser.contextMenus.create({
+        id: "save-to-immich-now",
+        title: "Save to immich",
+        contexts: ["image", "video"],
+    });
 }
 
-// Initial load of albums and menus
-fetchAndStoreAlbums().then(createAlbumMenus);
+// Remove initial load. Instead, update albums and menus when context menu is about to show
+browser.contextMenus.onShown.addListener(async () => {
+    await fetchAndStoreAlbums();
+    await createSaveMenus();
+});
 
 // Listen for reload message from options
-browser.runtime.onMessage.addListener((msg, sender, sendResponse) => {
+browser.runtime.onMessage.addListener(({msg, param}, sender, sendResponse) => {
     if (msg === "reload_albums") {
-        fetchAndStoreAlbums().then(createAlbumMenus).then(() => sendResponse({ ok: true }));
+        fetchAndStoreAlbums().then(createSaveMenus).then(() => sendResponse({ ok: true }));
         return true;
+    } else if (msg === 'save') {
+        let imgInfo = imageList[param.windowId];
+        immichUpload(imgInfo.img, imgInfo.imageUrl, param.albumId, param.albumName);
     }
 });
 
@@ -59,20 +59,34 @@ browser.action.onClicked.addListener(() => {
     }
 });
 
-browser.contextMenus.onClicked.addListener((info) => {
-    if (info.menuItemId === "upload-immich") {
-        const imageUrl = info.srcUrl;
-        immichUpload(imageUrl);
-    } else if (info.menuItemId.startsWith("upload-immich-album-")) {
-        const albumId = info.menuItemId.replace("upload-immich-album-", "");
-        const imageUrl = info.srcUrl;
-        immichUpload(imageUrl, albumId);
+browser.contextMenus.onClicked.addListener(async (info) => {
+    const imageUrl = info.srcUrl;
+    const imgResponse = await fetch(imageUrl);
+    const img = await imgResponse.blob();
+    if (info.menuItemId === "save-to-immich-now") {
+        immichUpload(img, imageUrl);
+    } else if (info.menuItemId === 'save-to-immich') {
+        let createData = {
+            type: "panel",
+            url: "saveto.html",
+            width: 250,
+            height: 500,
+        };
+        let creating = browser.windows.create(createData);
+        creating.then(function(windowInfo) {
+            imageList[windowInfo.id] = {img, imageUrl};
+        }, function(e) {
+            console.log("Cannot create window", e);
+            sendNotification("Cannot show album list window.");
+        });
     }
 });
 
-async function immichUpload(imgUrl, albumId) {
-    const imgResponse = await fetch(imgUrl);
-    const img = await imgResponse.blob();
+browser.windows.onRemoved.addListener(function(windowId) {
+    delete imageList[windowId];
+})
+
+async function immichUpload(img, imgUrl, albumId, albumName) {
     const date = new Date();
     const fileNameArr = imgUrl.split("/");
     const fileName = fileNameArr[fileNameArr.length - 1].split("?")[0];
@@ -95,14 +109,38 @@ async function immichUpload(imgUrl, albumId) {
     });
     if (!response.ok) {
         console.error("Failed to upload image:", response.statusText);
+        sendNotification("Failed to upload image: " + response.statusText);
         return;
     }
     const asset = await response.json();
     if (!asset || !asset.id || !asset.status || asset.status !== "created") {
         console.error("Invalid asset response:", asset);
-        return;
+        sendNotification("Failed to upload image: " + asset.status);
+        if (asset.status !== 'duplicate') {
+            return;
+        }
+    } else {
+        sendNotification("Upload image success.");
     }
-    if (albumId) {
+    if (albumId === -1) {
+        response = await fetch(api_url + `/albums`, {
+            method: "post",
+            headers: {
+                "x-api-key": api_key,
+                "Accept": "application/json",
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ albumName }),
+        });
+        if (!response.ok) {
+            console.error("Failed to create album:", response.statusText);
+            sendNotification("Failed to create album: " + response.statusText + ". Image uploaded.");
+        } else {
+            sendNotification("Create album " + albumName + " success.");
+            const asset = await response.json();
+            albumId = asset.id;
+        }
+    }else if (albumId) {
         response = await fetch(api_url + `/albums/${albumId}/assets`, {
             method: "put",
             headers: {
@@ -114,10 +152,18 @@ async function immichUpload(imgUrl, albumId) {
         });
         if (!response.ok) {
             console.error("Failed to add asset to album:", response.statusText);
+            sendNotification("Failed to add asset to album: " + response.statusText + ".");
         } else {
-            console.log("Image uploaded and added to album successfully.");
+            sendNotification("Image added to album.");
         }
-    } else {
-        console.log("Image uploaded successfully.");
     }
+}
+
+function sendNotification(msg) {
+    browser.notifications.create({
+        type: "basic",
+        iconUrl: "icons/icon.svg",
+        title: 'Upload Immich',
+        message: msg,
+    });
 }
