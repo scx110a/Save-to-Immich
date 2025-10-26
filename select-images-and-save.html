@@ -5,14 +5,29 @@
         <meta charset="utf-8" />
         <title>Select album</title>
         <style>
-            div[id="albums"] {
+            div[id="images"] {
                 display: flex;
-                flex-direction: column;
-                width: 95%;
+                flex-direction: row;
+                flex-wrap: wrap;
+                width: 100%;
             }
             .album-item {
                 margin: 0.3rem;
                 display: flex;
+            }
+            div[id="albums"] {
+                display: flex;
+                flex-direction: column;
+                width: 100%;
+            }
+            .img-item {
+                margin: 0.5rem;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                height: 6.2rem;
+                width: 5.1rem;
+                border: 1px solid lightgray;
             }
             :root {
                 --primary: #4a90e2;
@@ -24,7 +39,12 @@
                 --border: #ccc;
                 --shadow: 0 2px 8px rgba(0,0,0,0.07);
             }
-            /*noinspection CssUnusedSymbol*/
+            .content-body {
+                display: flex;
+                flex-direction: column;
+                margin-top: 0.5rem;
+                width: 93%;
+            }
             body.dark-mode {
                 --primary: #90caf9;
                 --primary-dark: #1976d2;
@@ -34,8 +54,6 @@
                 --input-bg: #23272b;
                 --border: #444;
                 --shadow: 0 2px 8px rgba(0,0,0,0.3);
-                display: flex;
-                flex-direction: column;
             }
             body {
                 font-family: system-ui, sans-serif;
@@ -48,8 +66,7 @@
                 flex-direction: column;
                 align-items: center;
                 transition: background 0.3s, color 0.3s;
-                display: flex;
-                flex-direction: column;
+                width: 27rem;
             }
             label {
                 font-weight: 500;
@@ -76,18 +93,6 @@
                 background: var(--form-bg);
             }
             button[type="button"] {
-                background: var(--primary);
-                color: #fff;
-                border: none;
-                border-radius: 4px;
-                padding: 0.7rem 1.2rem;
-                font-size: 1rem;
-                font-weight: 600;
-                cursor: pointer;
-                margin-top: 0.5rem;
-                transition: background 0.2s;
-            }
-            #upload {
                 margin-top: 2rem;
                 margin-bottom: 2rem;
                 background: var(--form-bg);
@@ -100,20 +105,23 @@
                 cursor: pointer;
                 transition: background 0.2s, color 0.2s;
             }
-            #upload:hover {
+            button[type="button"]:hover {
                 background: var(--primary);
                 color: #fff;
-            }
-            button[type="button"]:hover {
-                background: var(--primary-dark);
             }
         </style>
     </head>
     <body>
-        <div id="albums"></div>
-        <button type="button" id="upload">Upload</button>
+        <div id = "sel-img" class="content-body">
+            <div id="images"></div>
+            <button type="button" id="select">Select</button>
+        </div>
+        <div id = "sel-album" style="display: none;" class="content-body">
+            <div id="albums"></div>
+            <button type="button" id="upload">Upload</button>
+        </div>
         <script src="load-dark.js"></script>
-        <script src="conn-to.js"></script>
+        <script src="select-images-and-save.js"></script>
         <script src="saveto.js"></script>
     </body>
 </html>

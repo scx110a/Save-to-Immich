@@ -1,5 +1,3 @@
-const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-document.body.classList.toggle('dark-mode', prefersDark);
 async function loadAlbum() {
     const { immich_albums } = await browser.storage.local.get("immich_albums");
     let parentNode = document.getElementById("albums");
@@ -45,9 +43,10 @@ function createNode(album) {
     }
     return node;
 }
-async function saveToAlbum() {
-    document.getElementById("save").disabled = true;
-    const windowObj = await browser.windows.getCurrent();
+
+loadAlbum();
+document.getElementById("upload").onclick = async function() {
+    document.getElementById("upload").disabled = true;
     const selectedValue = document.querySelector('input[name="album"]:checked').value;
     let albumName = '';
     let albumId = '';
@@ -63,17 +62,13 @@ async function saveToAlbum() {
         albumId = selectedValue;
         albumName = tag;
     }
-    browser.runtime.sendMessage({
+    await browser.runtime.sendMessage({
         msg: 'save',
         param: {
-            windowId: windowObj.id,
             albumId,
-            albumName
+            albumName,
+            selectedImgs
         },
     });
-    setTimeout(function() {
-        browser.windows.remove(windowObj.id);
-    }, 50);
-}
-loadAlbum();
-document.getElementById("save").onclick = saveToAlbum;
+    window.close();
+};
